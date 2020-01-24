@@ -5,6 +5,11 @@ var dbconn = require('../helpers/dbconn.js')
 /* GET home page. */
 router.get('/items', function(req, res) {
   var conn = dbconn.conn
+  var sql = "SELECT * FROM items";
+  conn.query(sql, function (err, result) {
+    if(err) throw err;
+    res.json(result)
+  })
 });
 
 router.post('/item', function (req, res) {
