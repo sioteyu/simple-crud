@@ -22,7 +22,23 @@ router.post('/item', function (req, res) {
 });
 
 router.put('/item', function (req, res) {
+  var conn = dbconn.conn
+  var sql = "UPDATE items SET "
+  if (req.body.name) {
+    sql += `NAME = '${req.body.name}', `;
+  }
+  if (req.body.qty) {
+    sql += `qty = ${req.body.qty}, `;
+  }
+  if (req.body.amount) {
+    sql += `amount = ${req.body.amount} `
+  }
+  sql += `WHERE ID = ${req.body.id}`;
 
+  conn.query(sql, function (err, result) {
+    if (err) throw err;
+    res.json({message:'success'});
+  })
 });
 
 router.delete('/item', function (req, res) {
