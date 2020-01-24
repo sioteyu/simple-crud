@@ -42,7 +42,12 @@ router.put('/item', function (req, res) {
 });
 
 router.delete('/item', function (req, res) {
-
+  var conn = dbconn.conn
+  var sql = `DELETE FROM items WHERE ID = ${req.body.id}`
+  conn.query(sql, function (err, result) {
+    if (err) throw err;
+    res.json({message:'success'});
+  })
 });
 
 module.exports = router;
